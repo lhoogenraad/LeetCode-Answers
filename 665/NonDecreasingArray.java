@@ -6,19 +6,23 @@ public class NonDecreasingArray{
        Given an array nums with n integers, your task is to check if it could 
        become non-decreasing by modifying at most 1 element.
        We define an array is non-decreasing if nums[i] <= nums[i + 1]
-      holds for every i (0-based) such that (0 <= i <= n - 2).
+       holds for every i (0-based) such that (0 <= i <= n - 2).
+       
+       I assume that equal numbers are fine e.g. { 2, 2, 3, 4, 4, 5} is
+       in non-decreasing order.
     */
 
     public static void main(String[] args){
-	int[] arr = {1, 2, 4, 5, 7, 5};
+	int[] arr = {1, 2, 4, 5, 7, 6, 6, 7, 8};
 	if(isDecreasing(arr)){
 	    System.out.println("Array is already non-decreasing");
+	}else{
+	    if(checkIfModifiable(arr)){
+		System.out.println("Array can be modified");
+	    }else{
+		System.out.println("Array cannot be modified");
+	    }
 	}
-	int slice[] = slice(arr, 2, arr.length);
-	for(int i = 0; i < slice.length; i++){
-	    System.out.print(slice[i] + ", ");
-	}
-	System.out.println();
     }
 
     /**
@@ -36,11 +40,41 @@ public class NonDecreasingArray{
 	
 	for(int i = 0; i < array.length-1; i++){
 	    if(array[i] > array[i+1]){
+		/*
+		  At this point we can assume the whole array up until
+		  the final element was in non-decreasing. In this case, we can 
+		  Just modify the final element, so we return true
+		*/
+		if(i == array.length-1){
+		    return true;
+		}
 		// Check if remaining array is non-decreasing
 		int[] remainingArray = slice(array, i+1, array.length);
+		if(isDecreasing(remainingArray)){
+		    if(i == 0){
+			return true;
+		    }else if(i == array.length){
+			return true;
+		    }else if(array[i-1] > array[i+1]){
+			/*
+			  Definitely a better way of doing this, but this is to check
+			  for a situation like {1, 2, 3, >1<, 2, 5, 6} which would return true
+			  if it weren't for this check. I.e. the highlighted 1 is invalid.
+			 */
+			return false;
+		    }
+		    return true;
+		}else{
+		    /* 
+		       If we reach this statement, we know there are more than 2
+		       invalid elements, and so we can't fix the array up
+		       with only 1 modification
+		    */
+		    return false;
+		}
 	    }
 	}
-	return false;
+	return true;
     }
 
     /**
