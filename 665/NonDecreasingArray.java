@@ -14,7 +14,11 @@ public class NonDecreasingArray{
 	if(isDecreasing(arr)){
 	    System.out.println("Array is already non-decreasing");
 	}
-	System.out.println(slice(arr, 1, 4));
+	int slice[] = slice(arr, 2, arr.length);
+	for(int i = 0; i < slice.length; i++){
+	    System.out.print(slice[i] + ", ");
+	}
+	System.out.println();
     }
 
     /**
@@ -65,7 +69,6 @@ public class NonDecreasingArray{
 	}else if(endIndex > array.length){
 	    return null;
 	}
-
 	// Actual method logic starts here
 	int[] slice = new int[endIndex-startIndex];
 
