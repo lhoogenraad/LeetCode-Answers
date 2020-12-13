@@ -31,9 +31,8 @@ public class PhoneNumbers{
 	if(phNumber.charAt(0) == '('){
 	    return validateWithBrackets(phNumber);
 	}else{
-	    //return validateWithoutBrackets(phNumber);
+	    return validateWithoutBrackets(phNumber);
 	}
-	return false;
     }
 
     private static boolean validateWithBrackets(String number){
@@ -68,6 +67,29 @@ public class PhoneNumbers{
 
 	String[] numSplit = numbers.split("-");
 	if(numSplit.length != 2){
+	    return false;
+	}
+	for(String s : numSplit){
+	    for(int i = 0; i < s.length(); i++){
+		if(!Character.isDigit(s.charAt(i))){
+		    return false;
+		}
+	    }
+	}
+	return true;
+    }
+
+    private static boolean validateWithoutBrackets(String number){
+	if(number.length() != 12){
+	    return false;
+	}
+	String[] numSplit = number.split("-");
+	if(numSplit.length != 3){
+	    return false;
+	}
+	if(numSplit[0].length() != 3 ||
+	   numSplit[1].length() != 3 ||
+	   numSplit[2].length() != 4){
 	    return false;
 	}
 	for(String s : numSplit){
