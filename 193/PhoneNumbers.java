@@ -69,6 +69,9 @@ public class PhoneNumbers{
 	if(numSplit.length != 2){
 	    return false;
 	}
+	if(numSplit[0].length() != 3 || numSplit[1].length() != 4){
+	    return false;
+	}
 	for(String s : numSplit){
 	    for(int i = 0; i < s.length(); i++){
 		if(!Character.isDigit(s.charAt(i))){
