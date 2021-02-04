@@ -7,7 +7,7 @@ public class Sums{
     
     public static void main(String[] args){
 	ArrayList<ArrayList<Integer>> triplets = new ArrayList<>();
-        int[] array = {-1, 0, 1, 2, -1, 4};
+        int[] array = {-1, 0, 1, 2, -1, 4, -4, -8, 4};
 	
 	int arrayLen = array.length;
 
